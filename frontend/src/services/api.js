@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: "https://habitforge-backend-biji.onrender.com"
+  baseURL: "https://habitforge-backend-biji.onrender.com/api"
 });
 // ✅ Attach token to every request
 API.interceptors.request.use((req) => {

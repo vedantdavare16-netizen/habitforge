@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+/* 🔥 Heatmap Colors */
+.color-empty {
+  fill: #ebedf0;
+}
+
+.color-light {
+  fill: #9be9a8;
+}
+
+.color-medium {
+  fill: #40c463;
+}
+
+.color-strong {
+  fill: #216e39;
+}

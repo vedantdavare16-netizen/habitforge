@@ -1,9 +1,8 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: "http://localhost:5000/api",
+  baseURL: "https://habitforge-backend-biji.onrender.com"
 });
-
 // ✅ Attach token to every request
 API.interceptors.request.use((req) => {
   const token = localStorage.getItem("token");

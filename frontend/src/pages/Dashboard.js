@@ -30,19 +30,49 @@ function Dashboard() {
     fetchHabits();
   }, [fetchHabits]);
 
+  // ✅ NEW: EXPORT FUNCTION
+  const handleExport = async () => {
+    try {
+      const res = await fetch("https://habitforge-backend-biji.onrender.com", {
+        method: "GET",
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      });
+
+      if (res.status === 403) {
+        alert("This feature is only for Premium users 🚫");
+        return;
+      }
+
+      const blob = await res.blob();
+      const url = window.URL.createObjectURL(blob);
+
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "habits.csv";
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+    } catch (err) {
+      console.log(err);
+      alert("Export failed");
+    }
+  };
+
   // ✅ NEW: calculate today's completions
   const today = new Date().toISOString().split("T")[0];
 
- const todayCount = habits.reduce((count, habit) => {
-  const lastDate = habit.lastCompletedDate
-    ? new Date(habit.lastCompletedDate).toISOString().split("T")[0]
-    : null;
+  const todayCount = habits.reduce((count, habit) => {
+    const lastDate = habit.lastCompletedDate
+      ? new Date(habit.lastCompletedDate).toISOString().split("T")[0]
+      : null;
 
-  if (lastDate === today) {
-    return count + 1;
-  }
-  return count;
-}, 0);
+    if (lastDate === today) {
+      return count + 1;
+    }
+    return count;
+  }, 0);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-gray-900 to-slate-800 p-6 text-white">
@@ -77,6 +107,14 @@ function Dashboard() {
             📊 Charts
           </button>
         </Link>
+
+        {/* ✅ NEW: EXPORT BUTTON */}
+        <button
+          onClick={handleExport}
+          className="bg-green-600 hover:bg-green-700 transition px-5 py-2 rounded-xl shadow-lg"
+        >
+          📥 Export CSV
+        </button>
 
         <button
           onClick={() => {
@@ -129,8 +167,8 @@ function Dashboard() {
           ))}
         </div>
         <div className="max-w-4xl mx-auto mt-10">
-      <ProgressChart habits={habits} />
-    </div>
+          <ProgressChart habits={habits} />
+        </div>
         </>
       )}
     </div>

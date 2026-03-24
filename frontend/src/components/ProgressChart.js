@@ -16,7 +16,15 @@ function ProgressChart({ habits }) {
     datasets: [
       {
         label: "Completion Count",
-        data: habits.map((h) => h.completedDates?.length || 0),
+        data: habits.map((h) => {
+  const today = new Date().toISOString().split("T")[0];
+
+  const lastDate = h.lastCompletedDate
+    ? new Date(h.lastCompletedDate).toISOString().split("T")[0]
+    : null;
+
+  return lastDate === today ? 1 : 0;
+}),
         backgroundColor: "rgba(75,192,192,0.6)",
       },
     ],

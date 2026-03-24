@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import API from "../services/api";
 import HabitCard from "../components/HabitCard";
 import Heatmap from "../components/Heatmap";
+import ProgressChart from "../components/ProgressChart";
 
 function Dashboard() {
   const [habits, setHabits] = useState([]);
@@ -117,6 +118,7 @@ function Dashboard() {
       {habits.length === 0 ? (
         <p className="text-center text-gray-500">No habits yet</p>
       ) : (
+        <>
         <div className="grid gap-6 max-w-2xl mx-auto">
           {habits.map((habit) => (
             <HabitCard
@@ -126,6 +128,10 @@ function Dashboard() {
             />
           ))}
         </div>
+        <div className="max-w-4xl mx-auto mt-10">
+      <ProgressChart habits={habits} />
+    </div>
+        </>
       )}
     </div>
   );

@@ -37,7 +37,7 @@ router.get("/export", authMiddleware, async (req, res) => {
 
     
 
-    const habits = await Habit.find({ user: req.userId });
+   const habits = await Habit.find({ userId: req.userId });
 
     let csv = "Habit Name,Completed Today\n";
 

@@ -37,6 +37,10 @@ const userSchema = new mongoose.Schema({
 level: {
   type: Number,
   default: 1
+},
+isPremium: {
+  type: Boolean,
+  default: false
 }
 
 });

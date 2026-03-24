@@ -33,7 +33,7 @@ function Dashboard() {
   // ✅ NEW: EXPORT FUNCTION
   const handleExport = async () => {
     try {
-      const res = await fetch("https://your-backend.onrender.com/api/habits/export", {
+      const res = await fetch("https://habitforge-backend-biji.onrender.com/api/habits/export", {
         method: "GET",
         headers: {
           Authorization: "Bearer " + localStorage.getItem("token"),
